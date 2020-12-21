@@ -1,19 +1,33 @@
-const axios = require('axios').default;
-const apiKey = `d19ba85aadmsh6f3dc4e91a709ccp15a4c7jsnd6966474d4d7`
+import {apiDarkSky,apiWeatherBit} from  '../config/api'
 
-exports.getCurrentTemp = async () => {
+const lon = -58.3712
+const lat = -34.6083
 
-    const apiWeather = axios.create({
-        baseURL: 'https://weatherbit-v1-mashape.p.rapidapi.com/',
-        timeout: 1000,
-        headers: { 'x-rapidapi-key': apiKey,'x-rapidapi-host': 'weatherbit-v1-mashape.p.rapidapi.com' }
-    });
+export const getCurrentTemp = async () => {
 
-    var options = { params: {lon: -58.3712, lat: -34.6083, lang: 'es'} };
+    return 28
+    var options = { params: {lon: lon, lat: lat, lang: 'es'} };
 
     try {
-        const response = await apiWeather.get('current',options);
+        const response = await apiWeatherBit.get('current',options);
         return response.data.data[0].temp;
+    } catch (error) {
+        console.log(JSON.stringify(error))
+        return 0; 
+
+    }
+    
+}
+
+export const getFutureTemp = async (date) => {
+
+    return 23
+    
+    var options = { params: {lang: 'es', exclude: 'minutely,hourly,daily,alerts,flags', units: 'ca'} };
+
+    try {
+        const response = await apiDarkSky.get(`${lat},${lon},${date}`,options);
+        return response.data.currently.temperature
     } catch (error) {
         console.log(JSON.stringify(error))
         return 0; 

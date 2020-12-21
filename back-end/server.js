@@ -1,5 +1,6 @@
 import express from 'express'
 const http = require('http');
+const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const errorHandler = require('errorhandler');
@@ -12,6 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json({limit: "50mb"}))
 app.use(cors())
 app.set("PORT", AppPort)
+
+//BD connection
+require('./config/db');
 
 const env = process.env.NODE_ENV
 
@@ -46,6 +50,13 @@ const routes = require('./routes/api')(app);
 		if (r.route && r.route.path) {
 			console.log(`URI: ` + r.route.path + ` - Method:` + JSON.stringify(r.route.methods))
 		}
+	})
+
+	//Models Information
+	const models = mongoose.modelNames()
+	console.log(`Registered Models:`)
+	models.forEach(function (m) {
+		console.log(JSON.stringify(m))
 	})
   
 })

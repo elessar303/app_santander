@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getMeetups } from "../services/apibackend";
+import { getMeetups,getNewMeets, checkNewMeets } from "../services/apibackend";
 
 export const useGetMeetupsList= ( ) =>{
 
@@ -18,6 +18,44 @@ export const useGetMeetupsList= ( ) =>{
         })
 
     },[])
+
+    return state;
+}
+
+export const useGetNewMeets = ( userEmail ) =>{
+
+    const [state, setState] = useState({
+        newMeets:[]
+    });
+
+    useEffect( () => {
+
+        getNewMeets(userEmail).then( data => {
+            setState({
+                newMeets:data
+            })
+        })
+
+    },[userEmail])
+
+    return state;
+}
+
+export const useCheckNewMeets = ( userEmail ) =>{
+
+    const [state, setState] = useState({
+        newMeets:[]
+    });
+
+    useEffect( () => {
+
+        checkNewMeets(userEmail).then( data => {
+            setState({
+                newMeets:data
+            })
+        })
+
+    },[userEmail])
 
     return state;
 }
