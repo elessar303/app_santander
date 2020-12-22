@@ -40,10 +40,10 @@ export const NavbarCmp = () => {
                          {temp} <i className="fas fa-temperature-low"></i> 
                     </span>
                     <span className="navbar-brand">
-                    <button className="btn btn-outline-danger">
+                    <a className="btn btn-outline-danger" href="/login" >
                         <i className="fas fa-sign-out-alt"></i>
                         <span> Salir</span>
-                    </button>
+                    </a>
                 </span>
             </div>
         </div>

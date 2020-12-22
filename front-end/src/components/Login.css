@@ -1,51 +1,42 @@
-.login-container{
-    margin-top: 15%;
+html,
+.main {
+  height: 100vh;
 }
-.login-form-1{
-    border-radius: 5px;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-    padding: 5%;
+
+.main {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color:#212529!important
 }
-.login-form-1 h3{
-    text-align: center;
-    color: #333;
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
 }
-.login-form-2{
-    border-radius: 5px;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-    padding: 5%;
-    background: #0062cc;
+.form-signin .checkbox {
+  font-weight: 400;
 }
-.login-form-2 h3{
-    text-align: center;
-    color: #fff;
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
 }
-.login-container form{
-    padding: 10%;
+.form-signin .form-control:focus {
+  z-index: 2;
 }
-.btnSubmit
-{
-    width: 50%;
-    border-radius: 1rem;
-    padding: 1.5%;
-    border: none;
-    cursor: pointer;
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
-.login-form-1 .btnSubmit{
-    color: #fff;
-    background-color: #0062cc;
-}
-.login-form-2 .btnSubmit{
-    background-color: #fff;
-    color: #0062cc;
-}
-.login-form-2 .ForgetPwd{
-    color: #fff;
-    font-weight: 600;
-    text-decoration: none;
-}
-.login-form-1 .ForgetPwd{
-    color: #0062cc;
-    font-weight: 600;
-    text-decoration: none;
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

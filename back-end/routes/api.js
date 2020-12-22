@@ -16,4 +16,5 @@ module.exports = function (app) {
      * Users routes
      */
     app.get('/users', users_controller.get_users);
+    app.post('/login', users_controller.login);
 }
