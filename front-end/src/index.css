@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./img/background2.png");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 code {
@@ -15,4 +19,23 @@ code {
 .new-list-items {
   width: max-content;
   padding: 0!important;
+}
+
+.nav-user-rol{
+  font-size: small;
+}
+
+.form-check-input{
+  background-color:#dc3545!important;
+  border-color:#dc3545!important;
+}
+
+.input-icon{
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 0.5em);
+}
+
+.input-wrapper{
+  position: relative;
 }

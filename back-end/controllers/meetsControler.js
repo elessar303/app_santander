@@ -8,7 +8,7 @@ exports.get_meets = function (req, res) {
     }
     
     try {
-        Meet.find(search).exec(function (err, meets) {
+        Meet.find(search).sort([['date', 1]]).exec(function (err, meets) {
             if (err) {
                 console.log(JSON.stringify(err))
                 res.status(400).json({ message: err.message });

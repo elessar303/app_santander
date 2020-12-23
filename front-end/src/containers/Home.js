@@ -1,12 +1,16 @@
 import React from 'react'
 import { NavbarCmp } from '../components/NavbarCmp'
-import { MeetupsList } from '../components/MeetupsList'
+import { MeetupsListCmp } from '../components/MeetupsListCmp'
 
-export const Home = () => {
+export const Home = ({lang}) => {
     return (
         <div>
-            <NavbarCmp />
-            <MeetupsList />
+            <NavbarCmp 
+                lang={lang}
+            />
+            <MeetupsListCmp 
+                lang={lang}
+            />
         </div>
     )
 }

@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
+import { useHistory, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { NavbarCmp } from '../components/NavbarCmp'
 import { AddMeetCmp } from '../components/AddMeetCmp'
 import { useGetUsers } from '../hooks/useUsersHooks'
 import { useGetFutureTemp } from '../hooks/useGetTempsHooks'
 import { saveMeet } from '../services/apibackend'
-import { useHistory } from "react-router-dom";
 
 import moment from 'moment'
 
-export const AddMeet = () => {
+export const AddMeet = ({lang}) => {
 
     let history = useHistory();
-
+    const { user } = useSelector(state => state.auth);
     const [inputDate, setInputDate] = useState(moment().format('YYYY-MM-DD'))
     const { temp,loadingTemp } = useGetFutureTemp(moment(inputDate).format('X'));
     const { dataUsers } = useGetUsers();
@@ -57,8 +58,12 @@ export const AddMeet = () => {
         }else{
             alert('Error al almacenar MeetUp!')
         }
-        
+    
+    }
 
+    const handleCancel = async (e) =>{
+        e.preventDefault()
+        history.push("/");
     }
     
     let birras = 0
@@ -72,9 +77,16 @@ export const AddMeet = () => {
 
     const cajas = Math.ceil(birras/6)
 
+    if(user && !user.isAdmin){
+        alert("No tiene permiso para acceder a este modulo")
+        return <Redirect to="/" />;
+    }
+
     return (
         <div>
-            <NavbarCmp />
+            <NavbarCmp 
+                lang={lang}
+            />
             <AddMeetCmp  
                 temp = {temp}
                 loadingTemp = {loadingTemp}
@@ -86,6 +98,8 @@ export const AddMeet = () => {
                 usuarios = {dataUsers}
                 handleCheckUser = {handleCheckUser}
                 handleSubmit = {handleSubmit}
+                handleCancel = {handleCancel}
+                lang={lang}
             />
         </div>
     )

@@ -22,8 +22,9 @@ export const useGetMeetupsList= ( ) =>{
     return state;
 }
 
-export const useGetNewMeets = ( userEmail ) =>{
+export const useGetNewMeets = ( user ) =>{
 
+    const userEmail = (user && user.email) ? user.email:''
     const [state, setState] = useState({
         newMeets:[]
     });
@@ -41,7 +42,9 @@ export const useGetNewMeets = ( userEmail ) =>{
     return state;
 }
 
-export const useCheckNewMeets = ( userEmail ) =>{
+export const useCheckNewMeets = ( user ) =>{
+
+    const userEmail = (user && user.email) ? user.email:''
 
     const [state, setState] = useState({
         newMeets:[]
