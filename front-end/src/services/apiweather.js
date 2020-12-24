@@ -5,7 +5,6 @@ const lat = -34.6083
 
 export const getCurrentTemp = async () => {
 
-    return 25
     var options = { params: {lon: lon, lat: lat, lang: 'es'} };
 
     try {
@@ -18,8 +17,6 @@ export const getCurrentTemp = async () => {
 }
 
 export const getFutureTemp = async (date) => {
-
-    return 21
     
     var options = { params: {lang: 'es', exclude: 'minutely,hourly,daily,alerts,flags', units: 'ca'} };
 
