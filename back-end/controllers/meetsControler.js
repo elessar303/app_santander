@@ -25,6 +25,7 @@ exports.get_meets = function (req, res) {
 exports.save_meet = function (req, res) {
 
     let newMeet = new Meet(req.body);
+
     newMeet.save(function (err) {
         if (err) {
             console.log(JSON.stringify(err))

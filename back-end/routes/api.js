@@ -1,9 +1,13 @@
 var meets_controller = require('../controllers/meetsControler');
 var users_controller = require('../controllers/usersController');
+var index_controller = require('../controllers/indexController');
 
 module.exports = function (app) {
     //Link routes and functions
-
+    /**
+     * Index routes
+     */
+    app.get('/', index_controller.get_index);
     /**
      * Meets routes
      */

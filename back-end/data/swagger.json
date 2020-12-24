@@ -1,0 +1,374 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Api desarrollada como parte de AppSantander para manejo de peticiones y almacenamiento de data en mongo",
+    "version": "1.0.0",
+    "title": "Api Backend AppSantander",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "elessar303@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "127.0.0.1:8000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Meets",
+      "description": "Todo acerca de las meets"
+    },
+    {
+      "name": "Usuarios",
+      "description": "Todo acerca de los usuarios"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/meet": {
+      "post": {
+        "tags": [
+          "Meets"
+        ],
+        "summary": "Agregar nueva meet",
+        "description": "Inserta un nuevo registro en la coleccion de meets del Mongo",
+        "operationId": "save_meet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Meet object que se almacenara en la coleccion de MongoDB",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Meet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/meets":{
+      "get":{
+        "tags": [
+          "Meets"
+        ],
+        "summary": "Listado de todas las meets",
+        "description": "Lista todas las meets del almacenadas en Mongo ordenadas por fecha ascendentemente",
+        "operationId": "get_meets",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de meets",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "meets": {
+                  "type": "array",
+                  "xml": {
+                    "name": "tag",
+                    "wrapped": true
+                  },
+                  "items": {
+                    "$ref":"#/definitions/Meet"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/new_meets":{
+      "get":{
+        "tags": [
+          "Meets"
+        ],
+        "summary": "Listado de todas las meets no vistas para un usuario en especifico",
+        "description": "Lista todas las meets del almacenadas en Mongo ordenadas por fecha ascendentemente, donde la propiedad checked es false",
+        "operationId": "new_meets",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters":[
+            {
+            "name": "userEmail",
+            "in": "query",
+            "description": "Email del usuario para ubicar sus meets no vistas",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de meets",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "meets": {
+                  "type": "array",
+                  "xml": {
+                    "name": "tag",
+                    "wrapped": true
+                  },
+                  "items": {
+                    "$ref":"#/definitions/Meet"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/check_new_meets":{
+      "post":{
+        "tags": [
+          "Meets"
+        ],
+        "summary": "Marcar las meets no vistas como vistas",
+        "description": "Update del campo notify a true de todas las meets del usuario que tengan notify en false",
+        "operationId": "check_new_meets",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Objeto con el mail del usuario para marcar las meets vistas",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "type": "object",
+              "properties":{
+                "userEmail":{
+                  "type": "string",
+                  "example":"jhon@mail.com"
+                }             
+              }
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resultado de la actualización",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "meets": {
+                  "type": "object",
+                  "xml": {
+                    "name": "tag",
+                    "wrapped": true
+                  },
+                  "properties": {
+                      "n": {
+                        "type": "string"
+                      },
+                      "nModified": {
+                        "type": "string",
+                        "description": "Numero de documentos modificados"
+                      },
+                      "ok": {
+                        "type": "string"
+                      }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Estructura de data del usuario para realizar login",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "type": "object",
+              "properties":{
+                "email":{
+                  "type": "string",
+                  "example":"jhon@mail.com"
+                },
+                "password":{
+                  "type": "string",
+                  "example": "1234"
+                }              
+              }
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success, retorna el objeto del usuario logueado para almacenar en el localStore",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Failed, validacion para email en BD o contraseña incorrecta",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "example":"Incorrect password!"
+                  }
+                }
+              }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "isAdmin": {
+          "type": "boolean"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Meet": {
+      "type": "object",
+      "required": [
+        "date",
+        "temp",
+        "guests"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "example": "2020-12-30T00:00:00.000Z"
+        },
+        "temp": {
+          "type": "integer",
+          "example": 21
+        },
+        "guests": {
+          "type": "array",
+          "xml": {
+            "name": "tag",
+            "wrapped": true
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "isAdmin": {
+                "type": "boolean"
+              },
+              "notify": {
+                "type": "boolean",
+                "default": false
+              },
+              "checked": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          }
+        }
+      },
+      "xml": {
+        "name": "Meet"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

@@ -5,6 +5,8 @@ const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const errorHandler = require('errorhandler');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./data/swagger.json');
 
 const app = express()
 const AppPort = process.env.PORT || 8000
@@ -13,6 +15,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json({limit: "50mb"}))
 app.use(cors())
 app.set("PORT", AppPort)
+
+app.use('/api-docs', swaggerUi.serve);
+app.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
 //BD connection
 require('./config/db');
@@ -32,14 +37,6 @@ if (process.env.NODE_ENV === 'development') {
   }
 
 const routes = require('./routes/api')(app);
-
- //Routes information
- console.log(`Registered Routes:`)
- app._router.stack.forEach(function (r) {
-   if (r.route && r.route.path) {
-	console.log(`URI: ` + r.route.path + ` - Method:` + JSON.stringify(r.route.methods))
-   }
- })
 
  http.createServer(app).listen(AppPort, function () {
 	console.log(`**** Api listening On ${AppPort} ****`);
