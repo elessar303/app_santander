@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import {
     Router,
     Switch,
-    Route
+    Route,
+    Redirect
   } from "react-router-dom";
 import { Home } from '../containers/Home';
 import { Login } from '../containers/Login';
@@ -12,6 +13,8 @@ import { history } from "../helpers/history";
 import { clearMessage } from "../actions/message";
 
 export const RouterApp = ({lang}) => {
+
+    const { isLoggedIn } = useSelector(state => state.auth);
 
     const dispatch = useDispatch();
 
@@ -26,19 +29,13 @@ export const RouterApp = ({lang}) => {
             <div>
             <Switch>
                 <Route exact path="/">
-                    <Home 
-                        lang={lang}
-                    />
+                    {!isLoggedIn ? <Redirect push to="/login" /> : <Home lang={lang} />}
                 </Route>
                 <Route exact path="/login">
-                    <Login 
-                        lang={lang}
-                    />
+                    {isLoggedIn ? <Redirect push to="/" /> : <Login lang={lang}/>}
                 </Route>
                 <Route exact path="/addmeet">
-                    <AddMeet 
-                        lang={lang}
-                    />
+                    {!isLoggedIn ? <Redirect push to="/login" /> : <AddMeet lang={lang} />}
                 </Route>
             </Switch>
             </div>

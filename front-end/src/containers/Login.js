@@ -2,7 +2,7 @@ import React, { useState }  from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { LoginCmp } from '../components/LoginCmp'
 import { loginAction } from "../actions/auth";
-import { useHistory,Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const Login = ({lang}) => {
 
@@ -11,7 +11,6 @@ export const Login = ({lang}) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const { isLoggedIn } = useSelector(state => state.auth);
     const { message } = useSelector(state => state.message);
 
     const handleChangeUsername = (e) => {
@@ -37,10 +36,6 @@ export const Login = ({lang}) => {
             setLoading(false);
         });
     };
-
-    if (isLoggedIn) {
-        return <Redirect to="/" />;
-    }
 
     return (
         <LoginCmp 
