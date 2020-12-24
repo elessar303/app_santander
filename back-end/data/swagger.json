@@ -231,6 +231,8 @@
         "tags": [
           "Usuarios"
         ],
+        "summary": "Mock login del usuario",
+        "description": "Validacion en el backend para ubicar un usuario en la lista mock de users, retona un objeto del usuario si se encuentra",
         "parameters": [
           {
             "name": "data",
