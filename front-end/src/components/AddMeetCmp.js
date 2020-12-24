@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import { data } from '../helpers/translate';
 
@@ -60,4 +61,22 @@ export const AddMeetCmp = ({temp,loadingTemp, birras, cajas, invitados, dateMeet
             </div>
         </div>
     )
+}
+
+AddMeetCmp.propTypes = {
+    handleInputChangeDate: PropTypes.func.isRequired,
+    handleCheckUser: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    handleCancel: PropTypes.func.isRequired,
+    loadingTemp: PropTypes.bool.isRequired,
+    temp: PropTypes.number.isRequired,
+    invitados: PropTypes.number.isRequired,
+    cajas: PropTypes.number.isRequired,
+    birras: PropTypes.number.isRequired,
+    usuarios: PropTypes.array.isRequired,
+    dateMeet: PropTypes.string.isRequired
+}
+
+AddMeetCmp.defaultProps = {
+    lang:'es',
 }

@@ -35,8 +35,6 @@ export const NavbarCmp = ({lang}) => {
 
     const handleChangeLanguage = (e,selectedLang) =>{
 
-        console.log(selectedLang)
-
         if(selectedLang){
             dispatch(langAction(selectedLang))
         }
@@ -98,4 +96,8 @@ export const NavbarCmp = ({lang}) => {
             </div>
         </div>
     )
+}
+
+NavbarCmp.defaultProps = {
+    lang:'es'
 }

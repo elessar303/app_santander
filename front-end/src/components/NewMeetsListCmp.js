@@ -1,9 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import { uid } from 'uid';
 import { data as langs } from '../helpers/translate';
 
-export const NewMeetsListCmp = ({data,handleViewNotifications, showList, user, lang}) => {
+export const NewMeetsListCmp = ({data,handleViewNotifications, showList, user , lang}) => {
     return (
         <div className="collapse navbar-collapse" id="navbarNavDropdown" >
             {data.length > 0 &&
@@ -34,4 +35,15 @@ export const NewMeetsListCmp = ({data,handleViewNotifications, showList, user, l
             }
         </div>
     )
+}
+
+NewMeetsListCmp.propTypes = {
+    handleViewNotifications: PropTypes.func.isRequired,
+    showList: PropTypes.string.isRequired,
+    data: PropTypes.array.isRequired,
+    user: PropTypes.object.isRequired
+}
+
+NewMeetsListCmp.defaultProps = {
+    lang:'es',
 }

@@ -67,3 +67,7 @@ export const MeetupsListCmp = ({lang}) => {
         </div>
     )
 }
+
+MeetupsListCmp.defaultProps = {
+    lang:'es'
+}

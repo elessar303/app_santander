@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {data} from '../helpers/translate' 
 
 export const LanguageSelector = ({handleChangeLanguage,showList,lang}) => {
@@ -20,4 +21,13 @@ export const LanguageSelector = ({handleChangeLanguage,showList,lang}) => {
             </ul>
         </div>
     )
+}
+
+LanguageSelector.propTypes = {
+    handleChangeLanguage: PropTypes.func.isRequired,
+    showList: PropTypes.string.isRequired
+}
+
+LanguageSelector.defaultProps = {
+    lang:'es'
 }

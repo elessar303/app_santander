@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import './Login.css';
 import logo from '../img/icon.png'
 import { data } from '../helpers/translate'
 
-export const LoginCmp = ({username,password,loading,handleChangeUsername,handleChangePassword,handleLogin,message,lang}) => {
+export const LoginCmp = ({username,password,handleChangeUsername,handleChangePassword,handleLogin,message,lang}) => {
     return (
         <div className="text-center main">
             <main className="form-signin">
@@ -53,4 +54,17 @@ export const LoginCmp = ({username,password,loading,handleChangeUsername,handleC
             </main>
         </div>
     )
+}
+
+LoginCmp.propTypes = {
+    handleChangeUsername: PropTypes.func.isRequired,
+    handleChangePassword: PropTypes.func.isRequired,
+    handleLogin: PropTypes.func.isRequired,
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired
+}
+
+LoginCmp.defaultProps = {
+    lang:'es',
+    message: ''
 }
